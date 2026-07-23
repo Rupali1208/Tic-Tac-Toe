@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        
+        <meta charset = "UTF-8">
+        <meta name = "viewport" content = "width=device-width , initial-scale = 1.0">
+        <title> Tic Tac Toe </title>
+        
+        <style>
+            /* Basic Reset */
+
+            *{
+                margin : 0;
+                padding : 0;
+                box-sizing : border-box;
+            }
+
+            /* Body */
+            html,body{
+                width : 100%;
+                min-height : 100%;
+            }
+
+            body{
+                font-family :'Times New Roman', Times, serif;
+                min-height : 100vh;
+                display : flex;
+                justify-content : center;
+                align-items : center;
+                background-color : aliceblue;
+                margin : 0;
+            }
+
+            /* Main Container */
+            .game-container{
+                width : 500px;
+                padding : 40px;
+                margin : 0 auto;
+                text-align : center;
+                background-color : white;
+                border-radius : 25px;
+                border : 3px solid midnightblue;
+                box-shadow : 0 15px 30px darkgray;
+            }
+
+            /* Title */
+            h1{
+                font-size : 48px;
+                color : midnightblue;
+                margin-bottom : 10px;
+                letter-spacing : 2px;
+                text-align : center;
+            }
+
+            /* Subtitle */
+            .subtitle{
+                font-size : 18px;
+                color : slategray;
+                margin-bottom : 30px;
+                text-align : center;
+            }
+
+            /* Game Mode Section */
+            .mode-title{
+                font-size : 20px;
+                font-weight : bold;
+                color : midnightblue;
+                margin-bottom : 15px;
+                text-align : center;
+            }
+
+            /* Mode Buttons */
+            .mode-buttons{
+                display : flex;
+                justify-content : center;
+                align-items : center;
+                gap : 15px;
+                margin-bottom : 30px;
+            }
+
+            .mode-buttons form{
+                display : inline-block;
+            }
+
+            .mode-buttons button{
+                padding : 14px 20px;
+                border : none;
+                border-radius : 12px;
+                background-color : midnightblue;
+                color : white;
+                font-size : 15px;
+                font-weight : bold;
+                cursor : pointer;
+                box-shadow : 0 5px 10px lightgray;
+            }
+
+            .mode-buttons button:hover{
+                background-color : royalblue;
+            }
+
+            /* Board */
+            .board{
+                width : 330px;
+                margin : 30px auto;
+                padding : 10px;
+                background-color : midnightblue;
+                border-radius : 18px;
+                box-shadow : 0 10px 20px lightgray;
+            }
+
+            /* Board Form */
+            .board form{
+                display : grid;
+                grid-template-columns : repeat(3, 100px);
+                grid-template-rows : repeat(3, 100px);
+                gap : 5px;
+                justify-content : center;
+                align-items : center;
+            }
+
+            /* Game Cells */
+            .cell{
+                width : 100px;
+                height : 100px;
+                border : none;
+                border-radius : 12px;
+                background-color : white;
+                color : midnightblue;
+                font-size : 45px;
+                font-weight : bold;
+                cursor : pointer;
+                /* transition : transform 0.2s, background-color 0.2s; */
+            }
+
+            .cell:hover{
+                background-color : lightcyan;
+                /* transform : scale(1.05); */
+            }
+
+            /* Status */
+            .status-box{
+                margin-top : 25px;
+                padding : 15px;
+                border-radius : 12px;
+                background-color : aliceblue;
+                border : 2px solid skyblue;
+                text-align : center;
+            }
+
+            .status{
+                font-size : 20px;
+                font-weight : bold;
+                color : midnightblue;
+            }
+
+            /* Reset Button */
+            .reset-button{
+                margin-top : 25px;
+                padding : 14px 35px;
+                border : none;
+                border-radius : 12px;
+                background-color : tomato;
+                color : white;
+                font-size : 16px;
+                font-weight : bold;
+                cursor : pointer;
+                box-shadow : 0 5px 10px lightgray;
+            }
+            
+            .reset-button:hover{
+                background-color : crimson;
+            }
+
+            /* Footer */
+            .footer{
+                margin-top : 25px;
+                font-size : 14px;
+                color : slategray;
+                text-align : center;
+            }
+
+            /* Responsive Design */
+            @media (max-width : 550px){
+                .game-container{
+                    width : 90%;
+                    padding : 25px;
+                }
+
+                h1{
+                    font-size : 38px;
+                }
+
+                .mode-buttons{
+                    flex-direction : column;
+                }
+
+                .mode-buttons button{
+                    width : 100%;
+                }
+
+                .board{
+                    width : 270px;
+                }
+
+                .board form{
+                    grid-template-columns : repeat(3, 80px);
+                    grid-template-rows : repeat(3, 80px);
+                }
+
+                .cell{
+                    width : 80px;
+                    height : 80px;
+                    font-size : 35px;
+                }
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <!-- Main Game Container -->
+         <div class = "game-container">
+
+            <!-- Game Title -->
+             <h1> Tic Tac Toe </h1>
+
+             <!-- Subtitle -->
+              <p class = "subtitle">
+                Challenge your friend or play against the computer!
+              </p>
+
+             <!-- Game Mode Text -->
+              <p class = "mode-title"> Select Game Mode </p>
+
+              <!-- Game Mode Buttons -->
+               <div class = "mode-buttons">
+
+                <!-- Player vs Player -->
+                 <form action = "/pvp" method = "POST">
+                    <button type = "submit"> Player VS Player </button>
+                 </form>
+
+                 <!-- Player vs Computer -->
+                 <form action = "/computer" method = "POST">
+                    <button type = "submit"> Player VS Computer </button>
+                 </form>
+
+               </div>
+
+               <!-- Tic Tac Toe Board -->
+                <div class = "board">
+                    <form action = "/move"  method = "POST">
+
+                        <!-- Position 1 -->
+
+                        <button class = "cell" type = "submit" name = "position" value = "1"> </button>
+
+                        <!-- Position 2 -->
+
+                        <button class = "cell" type = "submit" name = "position" value = "2"> </button>
+
+                        <!-- Position 3 -->
+
+                        <button class = "cell" type = "submit" name = "position" value = "3"> </button>
+
+                        <!-- Position 4 -->
+
+                        <button class = "cell" type = "submit" name = "position" value = "4"> </button>
+
+                        <!-- Position 5 -->
+
+                        <button class = "cell" type = "submit" name = "position" value = "5"> </button>
+
+                        <!-- Position 6 -->
+
+                        <button class = "cell" type = "submit" name = "position" value = "6"> </button>
+
+                        <!-- Position 7 -->
+
+                        <button class = "cell" type = "submit" name = "position" value = "7"> </button>
+
+                        <!-- Position 8 -->
+
+                        <button class = "cell" type = "submit" name = "position" value = "8"> </button>
+
+                        <!-- Position 9 -->
+
+                        <button class = "cell" type = "submit" name = "position" value = "9"> </button>
+                    </form>
+                </div>
+
+                <!-- Game Status -->
+
+                <div class = "status-box">
+                    <p class = "status"> Player X's Turn </p>
+                </div>
+
+                <!-- Reset Game -->
+
+                <form action = "/reset" method = "POST">
+                    <button class = "reset-button" type = "submit"> Reset Game </button>
+                </form>
+
+                <!-- Footer -->
+                 <p class = "footer">
+                    Have fun playing Tic Tac Toe!
+                 </p>
+        
+            </div>
+    </body>
+</html>
